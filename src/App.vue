@@ -1,30 +1,47 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <component :is="layout">
+  </component>
 </template>
 
+<script>
+import mainLayout from '@/layouts/mainLayout.vue';
+
+export default {
+  computed: {
+    layout() {
+      return `${this.$route.meta.layout || 'empty'}-layout`;
+    },
+  },
+  components: {
+    mainLayout,
+  },
+};
+
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import './bootstrap/bootstrap.scss';
+// @import '~bootstrap/scss/bootstrap';
+body {
+  background: #F5F5F5
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.tooltip {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+}
+.bs-tooltip-bottom {
+  margin-top: 10px;
+}
+.bs-tooltipe-top {
+  margin-bottom: 10px;
+}
+.bs-tooltipe-left {
+  margin-right: 10px;
+}
+.bs-tooltipe-right {
+  margin-left: 10px;
 }
 </style>
