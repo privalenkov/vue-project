@@ -284,6 +284,7 @@
 
 <script>
 export default {
+  name: 'Sidebar',
   data: () => ({
     links: [
       {

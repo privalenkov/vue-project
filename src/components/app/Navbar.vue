@@ -143,7 +143,6 @@ a {
     padding: 20px 80px 20px 20px;
     &:focus {
       transition: 0.35s ease;
-      color: #5959D3;
       &::-webkit-input-placeholder{
         transition: opacity 0.45s ease;
         opacity: 0;
@@ -238,9 +237,9 @@ a {
 
 <script>
 export default {
+  name: 'Navbar',
   methods: {
     logout() {
-      console.log('Logout');
       this.$router.push('/login?message=logout');
     },
   },

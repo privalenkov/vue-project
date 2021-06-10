@@ -1,5 +1,5 @@
 <template>
-  <div class="WalletContainer  d-flex flex-column">
+  <div class="walletContainer  d-flex flex-column">
     <h2>Мои кошельки</h2>
     <ul>
       <li class="list-unstyled">
@@ -10,23 +10,26 @@
 </template>
 
 <style lang="scss" scoped>
-.WalletContainer li {
+.walletContainer li {
   margin: 0 0 0 -85px;
 }
 @media (min-width: 1199px) {
-  .WalletContainer li {
+  .walletContainer li {
     margin: 0 0 0 calc(-4em - 1%);
   }
 }
 @media (max-width: 1199px) {
-  .WalletContainer li {
+  .walletContainer li {
     margin: 0 0 0 -65px;
   }
+}
+h2 {
+  font-weight: 700;
 }
 </style>
 
 <script>
-import Wallet from '@/components/app/Wallet.vue';
+import Wallet from '@/components/app/mainPageComponents/Wallet.vue';
 import { Tooltip, Dropdown } from 'bootstrap';
 
 export default {

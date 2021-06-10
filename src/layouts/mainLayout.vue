@@ -17,7 +17,7 @@
   padding: 0;
 }
 .cv {
-  padding: 130px 0 0 308px;
+  padding: 130px 60px 0 308px;
 }
 .mcw {
     animation: bodyslidein 300ms forwards;
