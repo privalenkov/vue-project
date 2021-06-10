@@ -1,31 +1,42 @@
 <template>
-  <Navbar />
-  <Sidebar />
-  <div class="mcw scroll">
-    <div class="cv">
-      <router-view />
+  <div class="flex-container">
+    <Navbar />
+    <Sidebar />
+    <div class="mcw scroll">
+      <div class="cv">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 .mcw {
   // margin: 90px 0 0 268px;
-  position: relative;
-  height: 100vh;
+  // position: relative;
+  // height: 100vh;
   overflow: auto;
-  padding: 0;
+  // padding: 0;
 }
 .cv {
-  padding: 130px 60px 0 308px;
+  padding: 0 60px 0 308px;
+  // overflow: auto;
+  // position: absolute;
+  // height: 80vh;
+  // width: 100vw;
 }
-.mcw {
-    animation: bodyslidein 300ms forwards;
-    transform-style: preserve-3d;
-}
+// .mcw {
+//     animation: bodyslidein 300ms forwards;
+//     transform-style: preserve-3d;
+// }
 @media (max-width: 910px) {
   .cv {
-    padding: 180px 0 0 308px;
+    padding: 0 60px 0 308px;
   }
 }
 </style>

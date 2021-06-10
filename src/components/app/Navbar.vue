@@ -174,11 +174,10 @@ a {
 }
 .navbar-default {
   background-color: #F5F5F5;
-  position: absolute;
+  // position: absolute;
   top: 0;
   z-index: 1000;
   padding: 0 30px 0 0;
-  width: 100vw;
 }
 .navbar-default #navbar {
   flex-wrap: wrap-reverse;
