@@ -1,153 +1,78 @@
 <template>
-  <div class="activityTableContainer">
-    <h2>Последняя активность</h2>
-    <div class="mb-5">
+  <div class="activitys-container">
+    <h2 class="activitys-container__title">Последняя активность</h2>
+    <div class="activitys-container__list-container">
       <div
-      class="table-activity"
+      class="activitys-container__list"
       v-for="(activity, key) in lastActivitys"
       :key="activity.id"
       custom
       >
-        <div class="date-title">
-        {{ date(activity.date) }}</div>
+        <div class="activitys-container__date-title">
+          {{ date(activity.date) }}
+        </div>
         <div
-        class="grid-container"
+        class="activitys-container__grid-container"
         v-for="operations in lastActivitys[key].activitys"
         :key="operations.id"
         custom
         >
-          <div class="grid-item d-flex">
-            <div :class="{'operation-status': true,
-            'd-flex': true,
-            'operation-green': operations.operation === 'Пополнение',
-            'operation-red': operations.operation === 'Списание',
-            'operation-yellow': operations.operation === 'P2P'
+          <div class="activitys-container__grid-item">
+            <div class="activitys-container__operation-status"
+            :class="{
+            'activitys-container__operation-status_green': operations.operation === 'Пополнение',
+            'activitys-container__operation-status_red': operations.operation === 'Списание',
+            'activitys-container__operation-status_yellow': operations.operation === 'P2P'
             }">
               <img v-if="operations.operation === 'Пополнение'"
-              class="operation-status-icon" width="20" height="20"
+              class="activitys-container__image" width="20" height="20"
               src="/img/app-icons/menu-items/operation-status/repl-icon.svg">
               <img v-else-if="operations.operation === 'Списание'"
-              class="operation-status-icon" width="20" height="20"
+              class="activitys-container__image" width="20" height="20"
               src="/img/app-icons/menu-items/operation-status/write-icon.svg">
               <img v-else-if="operations.operation === 'P2P'"
-              class="operation-status-icon" width="20" height="20"
+              class="activitys-container__image" width="20" height="20"
               src="/img/app-icons/menu-items/operation-status/process-icon.svg">
             </div>
             <span>{{ operations.operation }}</span>
           </div>
-          <div class="grid-item d-flex"><span>{{ operations.name }}</span></div>
-          <div class="grid-item d-flex justify-content-center">
+          <div class="activitys-container__grid-item">
+            <span>{{ operations.name }}</span>
+          </div>
+          <div class="activitys-container__grid-item activitys-container__grid-item_content-center">
             <span>
               {{ operations.number }}
-              <img class="user-select-none"
+              <img class="activitys-container__image"
               src="/img/app-icons/activity-table-arrow-icon.svg" width="16" height="16">
-              {{ operations.numberto }}</span>
+              {{ operations.numberto }}
+            </span>
           </div>
-          <div class="grid-item d-flex justify-content-center">
+          <div class="activitys-container__grid-item activitys-container__grid-item_content-center">
             <span>{{ operations.time }}</span>
           </div>
-          <div class="grid-item d-flex justify-content-center">
+          <div class="activitys-container__grid-item activitys-container__grid-item_content-center">
             <span>{{ operations.total }} ₸</span>
           </div>
-          <div class="grid-item d-flex">
-          <div :class="{'status-dot': true,
-          'dot-green': operations.status === 'Выполнен',
-          'dot-red': operations.status === 'Отмена',
-          'dot-yellow': operations.status === 'В обработке'}"></div>
-          <span>{{ operations.status }}</span>
+          <div class="activitys-container__grid-item">
+            <div class="activitys-container__status-dot"
+            :class="{
+            'activitys-container__status-dot_green': operations.status === 'Выполнен',
+            'activitys-container__status-dot_red': operations.status === 'Отмена',
+            'activitys-container__status-dot_yellow': operations.status === 'В обработке'}"
+            ></div>
+            <span>{{ operations.status }}</span>
           </div>
         </div>
       </div>
-      <div class="title-activity"
-      v-if="lastActivitys.length === 0">За последнее время операций не было обнаружено</div>
+      <div class="empty-activitys"
+      v-if="lastActivitys.length === 0">
+      За последнее время операций не было обнаружено
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.activityTableContainer {
-  margin-top: calc(-2.5rem - 2vw);
-}
-h2 {
-  font-weight: 700;
-}
-.table-activity {
-  display: grid;
-  grid-gap: 15px;
-  margin-top: 20px;
-}
-.grid-container, .date-title, .title-activity {
-  font-family: Inter;
-  font-style: normal;
-  line-height: 24px;
-  font-weight: 500;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr;
-  grid-gap: 10px;
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-  font-size: 16px;
-  color: #000;
-}
-.date-title {
-  font-size: 14px;
-  color: #B8B8B8;
-}
-.grid-container:hover {
-  background: #e9e9e9;
-}
-.grid-item {
-  align-items: center;
-  grid-column-gap: 10px;
-}
-.title-activity {
-  font-size: 18px;
-  color: #ebebeb;
-}
-.status-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50px;
-  background: #999999;
-}
-.dot-green {
-  background: #77D32F;
-}
-.dot-red {
-  background: #D75F5F;
-}
-.dot-yellow {
-  background: #D3CD2F;
-}
-.operation-status {
-  width: 36px;
-  height: 36px;
-  border-radius: 9px;
-  background: rgba(153, 153, 153, 0.1);
-  justify-content: center;
-  align-items: center;
-  &.operation-green {
-  background: rgba(0, 156, 140, 0.1);
-  }
-  &.operation-yellow {
-    background: rgba(253, 177, 2, 0.1);
-  }
-  &.operation-red {
-    background: rgba(172, 9, 47, 0.1);
-  }
-}
-.grid-container img {
-  user-select: none;
-  -webkit-user-drag: none;
-}
-</style>
-
 <script>
-// const lastActivitys = [];
 const lastActivitys = [
   {
     id: '1',
@@ -194,7 +119,7 @@ const lastActivitys = [
 ];
 
 export default {
-  name: 'ActivityTableContainer',
+  name: 'activitys-container',
   data: () => ({
     lastActivitys,
   }),
@@ -212,3 +137,96 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.activitys-container {
+  margin-top: calc(-2.5rem - 2vw);
+
+  .activitys-container__title {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: calc(1.3rem + .8vw);
+    line-height: 52px;
+    margin: 0;
+  }
+  .activitys-container__list-container {
+    margin-bottom: 3rem;
+    font-family: Inter;
+    font-style: normal;
+    line-height: 24px;
+    font-weight: 500;
+
+    .activitys-container__list {
+      display: grid;
+      grid-gap: 15px;
+      margin-top: 20px;
+    }
+    .activitys-container__date-title {
+      font-size: 14px;
+      color: #B8B8B8;
+    }
+    .activitys-container__grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr;
+      grid-gap: 10px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 16px;
+      color: #000;
+    }
+    .activitys-container__grid-item {
+      align-items: center;
+      grid-column-gap: 10px;
+      display: flex;
+    }
+    .activitys-container__operation-status {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(153, 153, 153, 0.1);
+      justify-content: center;
+      align-items: center;
+      display: flex;
+
+      &_green {
+        background: rgba(0, 156, 140, 0.1);
+      }
+      &_yellow {
+        background: rgba(253, 177, 2, 0.1);
+      }
+      &_red {
+        background: rgba(172, 9, 47, 0.1);
+      }
+    }
+    .activitys-container__grid-item_content-center {
+      justify-content: center;
+    }
+    .activitys-container__image {
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .empty-activitys {
+      font-size: 18px;
+      color: #ebebeb;
+    }
+    .activitys-container__status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50px;
+      background: #999999;
+
+      &_red {
+        background: #D75F5F;
+      }
+      &_green {
+        background: #77D32F;
+      }
+      &_yellow {
+        background: #D3CD2F;
+      }
+    }
+  }
+}
+</style>

@@ -5,6 +5,7 @@
 
 <script>
 import mainLayout from '@/layouts/mainLayout.vue';
+import loginLayout from '@/layouts/loginLayout.vue';
 
 export default {
   computed: {
@@ -13,17 +14,17 @@ export default {
     },
   },
   components: {
-    mainLayout,
+    mainLayout, loginLayout,
   },
 };
 
 </script>
 
 <style lang="scss">
-@import './bootstrap/bootstrap.scss';
-// @import '~bootstrap/scss/bootstrap';
+// @import './bootstrap/bootstrap.scss';
 body {
-  background: #F5F5F5
+  background: #F5F5F5;
+  margin: 0;
 }
 .tooltip {
   font-family: Inter;

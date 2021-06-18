@@ -1,39 +1,20 @@
 <template>
-  <div class="walletContainer  d-flex flex-column">
-    <h2>Мои кошельки</h2>
-    <ul>
-      <li class="list-unstyled">
+  <div class="wallet-container">
+    <h2 class="wallet-container__title">Мои кошельки</h2>
+    <ul class="wallet-container__wallet">
+      <li class="wallet-container__item">
         <Wallet :msg="msg"/>
       </li>
     </ul>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.walletContainer li {
-  margin: 0 0 0 -85px;
-}
-@media (min-width: 1199px) {
-  .walletContainer li {
-    margin: 0 0 0 calc(-4em - 1%);
-  }
-}
-@media (max-width: 1199px) {
-  .walletContainer li {
-    margin: 0 0 0 -65px;
-  }
-}
-h2 {
-  font-weight: 700;
-}
-</style>
-
 <script>
 import Wallet from '@/components/app/mainPageComponents/Wallet.vue';
-import { Tooltip, Dropdown } from 'bootstrap';
+import { Dropdown } from 'bootstrap';
 
 export default {
-  name: 'WalletContainer',
+  name: 'wallet-container',
   props: {
     msg: String,
   },
@@ -41,15 +22,16 @@ export default {
     Wallet,
   },
   methods: {
-    tooltip() {
-      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-      tooltipTriggerList.map((tooltipTriggerEl) => {
-        const tooltip = new Tooltip(tooltipTriggerEl, {
-          boundary: document.body, // or document.querySelector('#boundary')
-        });
-        return tooltip;
-      });
-    },
+    // tooltip() {
+    //   const tooltipTriggerList =
+    // [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    //   tooltipTriggerList.map((tooltipTriggerEl) => {
+    //     const tooltip = new Tooltip(tooltipTriggerEl, {
+    //       boundary: document.body, // or document.querySelector('#boundary')
+    //     });
+    //     return tooltip;
+    //   });
+    // },
     dropdown() {
       const dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
       dropdownElementList.map((dropdownToggleEl) => {
@@ -59,8 +41,40 @@ export default {
     },
   },
   mounted() {
-    this.tooltip();
+    // this.tooltip();
     this.dropdown();
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.wallet-container {
+  display: flex;
+  flex-direction: column;
+
+  .wallet-container__title {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: bold;
+    font-size: calc(1.3rem + .8vw);
+    line-height: 52px;
+    margin: 0;
+  }
+  .wallet-container__wallet {
+    padding-left: 0;
+    margin:0;
+    list-style: none;
+
+    .wallet-container__item {
+      margin: 0 0 0 -55px;
+
+      @media (max-width: 1620px) {
+        margin: 0 0 0 -42px;
+      }
+      @media (max-width: 992px) {
+        margin: 0 0 0 -35px;
+      }
+    }
+  }
+}
+</style>

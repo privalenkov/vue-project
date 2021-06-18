@@ -1,4 +1,6 @@
 import { createStore } from 'vuex';
+import toast from './modules/toast';
+import registerForm from './modules/registerForm';
 
 export default createStore({
   state: {
@@ -8,5 +10,6 @@ export default createStore({
   actions: {
   },
   modules: {
+    toast, registerForm,
   },
 });
