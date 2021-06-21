@@ -1,5 +1,5 @@
 <template>
-  <div class="login-layout">
+  <div class="auth-layout">
     <ToastList />
     <router-view />
   </div>
@@ -9,7 +9,7 @@
 import ToastList from '@/components/app/toast/ToastList.vue';
 
 export default {
-  name: 'login-layout',
+  name: 'auth-layout',
   components: {
     ToastList,
   },

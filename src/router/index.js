@@ -8,9 +8,9 @@ const routes = [
     component: () => import('../views/mainLayoutPages/MainPage.vue'),
   },
   {
-    path: '/login',
-    name: 'login',
-    meta: { layout: 'login' },
+    path: '/auth/signup',
+    name: 'signup',
+    meta: { layout: 'signup' },
     component: () => import('../views/loginLayoutPages/LoginPage.vue'),
   },
   {

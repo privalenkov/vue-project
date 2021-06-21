@@ -43,22 +43,15 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'first-step',
-  data() {
-    return {
-      value: {
-        type: Boolean,
-        default: false,
-      },
-    };
-  },
   computed: {
+    ...mapGetters(['getName']),
     model: {
       get() {
-        return this.value;
+        return this.getName;
       },
       set(val) {
         this.changeName({ name: val });
@@ -72,7 +65,7 @@ export default {
 
 <style lang="scss" scoped>
 .first-step {
-  margin-top: 50px;
+  margin-top: 80px;
   h3 {
     font-family: Inter;
     font-style: normal;

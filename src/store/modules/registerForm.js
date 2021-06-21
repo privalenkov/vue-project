@@ -23,7 +23,7 @@ export default ({
     getName(state) {
       return state.name;
     },
-    getphone(state) {
+    getPhone(state) {
       return state.phone;
     },
   },
