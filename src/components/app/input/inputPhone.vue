@@ -9,6 +9,7 @@
       id="phone"
       class="input-phone__input"
       @input="updateValue"
+      @keydown="phoneKeyDown"
       v-model="model"
     />
     <span class="input-phone__info">Введите зарегистрированный номер</span>
@@ -20,7 +21,7 @@ export default {
   name: 'input-phone',
   props: ['phoneNum'],
   data: () => ({
-    phoneValue: '',
+    formatted: '',
   }),
   computed: {
     model: {
@@ -29,7 +30,9 @@ export default {
         return this.formattedPhone(numbersValue);
       },
       set(val) {
-        this.$emit('phoneNumber', { phoneNumber: val.replace(/[^+\d]/g, '') });
+        const numbersValue = this.getNumbersValue(val);
+        const formatted = this.formattedPhone(numbersValue);
+        this.$emit('phoneNumber', { phoneNumber: formatted.replace(/[^+\d]/g, '') });
       },
     },
   },
@@ -37,19 +40,19 @@ export default {
     updateValue(e) {
       const input = e.target;
       const numbersValue = this.getNumbersValue(input.value);
-      const { selectionStart } = input;
+      // const { selectionStart } = input;
 
-      // if (!numbersValue) {
+      // if (!input.value) {
       //   input.value = '';
       //   return;
       // }
 
-      if (input.value.length !== selectionStart) {
-        if (e.data && /\D/g.test(e.data)) {
-          input.value = numbersValue;
-        }
-        return;
-      }
+      // if (input.value.length !== selectionStart) {
+      //   if (e.data && /\D/g.test(e.data)) {
+      //     input.value = numbersValue;
+      //   }
+      //   return;
+      // } 9536906306 84442124224 asddssaass
       input.value = this.formattedPhone(numbersValue);
     },
     formattedPhone(numVal) {
@@ -59,9 +62,10 @@ export default {
       // if (!numbersValue[2] && numbersValue[1] !== '') {
       //   formatted = '';
       // }
-      // if (formatted.length <= 3) {
-      //   numbersValue = '';
-      // }
+      if (!numbersValue) {
+        formatted = '';
+        return formatted;
+      }
       if (['7', '8', '9'].includes(numbersValue[0])) {
         if (numbersValue[0] === '9') numbersValue = `7${numbersValue}`;
 
@@ -82,7 +86,8 @@ export default {
       } else {
         formatted = `+${numbersValue}`;
       }
-      return formatted;
+      this.formatted = formatted;
+      return this.formatted;
     },
     getNumbersValue(val) {
       return val.replace(/\D/g, '');
@@ -93,6 +98,7 @@ export default {
       if ((e.keyCode === 8 && inputValue.length === 1)
       || (e.keyCode === 8 && selectionStart <= 2)) {
         e.target.value = '';
+        this.$emit('phoneNumber', { phoneNumber: '' });
       }
     },
   },
