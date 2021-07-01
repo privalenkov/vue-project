@@ -16,6 +16,8 @@ export default {
   .logo__image {
     cursor: pointer;
     width: 154px;
+    height: 70px;
+    user-select: none;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }

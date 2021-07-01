@@ -4,7 +4,8 @@
       <slot />
     </div>
     <transition name="dropdown">
-      <ul v-show="isShown" class="base-dropdown__my-dropdown-menu" aria-labelledby="mydropdown">
+      <ul v-show="isShown" class="base-dropdown__my-dropdown-menu"
+      aria-labelledby="mydropdown" ref="dropdownRef">
         <a href="#" @click.prevent="logout">
           <li class="d-flex">
             <img class="btn-icon"
@@ -47,7 +48,10 @@ export default {
       this.isShown = !this.isShown;
     },
     onClickOutside(e) {
-      this.isShown = this.$el.contains(e.target) && this.isShown;
+      console.log(e);
+      // this.isShown = e.target === this.$refs.dropdownRef && this.isShown;
+      // if (e.target === this.$refs.dropdownRef) console.log('s');
+      // this.isShown = this.$el.contains(e.target) && this.isShown;
     },
   },
   created() {

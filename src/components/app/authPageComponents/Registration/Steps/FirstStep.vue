@@ -43,10 +43,22 @@
 </template>
 
 <script>
+import useVuelidate from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'first-step',
+  setup() {
+    return { v$: useVuelidate() };
+  },
+  validations() {
+    return {
+      getName: {
+        required,
+      },
+    };
+  },
   computed: {
     ...mapGetters(['getName']),
     model: {
@@ -58,6 +70,9 @@ export default {
         this.value = val;
       },
     },
+  },
+  mounted() {
+    this.v$.$validate();
   },
   methods: mapActions(['changeName']),
 };

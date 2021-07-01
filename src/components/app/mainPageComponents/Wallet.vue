@@ -36,7 +36,7 @@
           <div class="wallet-btn-menu">
             <div class="btn-menu">
               <BaseTooltip text="Подробнее">
-                <div @click="toggle" ref="btn" class="btn-menu__wallet-btn-more">
+                <div @click="toggle" ref="btnRef" class="btn-menu__wallet-btn-more">
                   <div class="btn-menu__btn-circles"></div>
                 </div>
               </BaseTooltip>
@@ -98,7 +98,7 @@ export default {
       this.isShown = !this.isShown;
     },
     onClickOutside(e) {
-      this.isShown = this.$refs.btn.contains(e.target) && this.isShown;
+      this.isShown = this.$refs.btnRef.contains(e.target) && this.isShown;
     },
   },
   created() {

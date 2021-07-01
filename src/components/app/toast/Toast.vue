@@ -72,7 +72,8 @@ export default {
     width: 0.8em;
     height: 0.8em;
     color: #000;
-    background: url('/img/app-icons/toast-icons/btn-close-icon.svg') center/1em auto no-repeat;
+    cursor: pointer;
+    background: url('/img/btn-close-icon.svg') center/1em auto no-repeat;
     border: 0;
     padding: 0;
     margin: 0.8rem 0.8rem 0 auto;

@@ -1,34 +1,27 @@
 <template>
   <div class="navigation">
-    <button
-      class="navigation__btn"
-      v-show="!isFirst"
-      v-on:click="$emit('click-prev')"
-    >
-      Назад
-    </button>
-    <button
-      class="navigation__btn"
-      v-on:click="$emit('click-next')"
-      @click="navigateNext"
-    >
-    {{ nextButtonText }}
-    </button>
+    <Button v-show="!isFirst" v-on:click="$emit('click-prev')" title="Назад"/>
+    <Button v-on:click="$emit('click-next')" :title="nextButtonText"/>
   </div>
 </template>
 
 <script>
+import Button from '@/components/app/button/button.vue';
+
 export default {
   name: 'navigation',
   props: {
     step: {
       type: Number,
-      require: true,
+      required: true,
     },
     totalsteps: {
       type: Number,
-      require: true,
+      required: true,
     },
+  },
+  components: {
+    Button,
   },
   computed: {
     nextButtonText() {
@@ -39,16 +32,6 @@ export default {
     },
     isFirst() {
       return this.step === 1;
-    },
-  },
-  methods: {
-    navigateNext() {
-      if (this.step === this.totalsteps) {
-        this.submit();
-      }
-    },
-    submit() {
-      alert('submitted to the back-end');
     },
   },
 };

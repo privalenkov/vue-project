@@ -5,7 +5,8 @@
 
 <script>
 import mainLayout from '@/layouts/mainLayout.vue';
-import signupLayout from '@/layouts/signupLayout.vue';
+import authLayout from '@/layouts/authLayout.vue';
+import errorLayout from '@/layouts/errorLayout.vue';
 
 export default {
   computed: {
@@ -14,7 +15,7 @@ export default {
     },
   },
   components: {
-    mainLayout, signupLayout,
+    mainLayout, authLayout, errorLayout,
   },
 };
 

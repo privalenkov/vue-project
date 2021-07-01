@@ -2,29 +2,33 @@
   <div class="input-phone">
     <label for="phone" class="input-phone__title">Телефон</label>
     <input
+      ref="input"
       type="tel"
       inputmode="numeric"
       x-inputmode="numeric"
       name="phone"
+      maxlength="24"
       id="phone"
-      class="input-phone__input"
-      @input="updateValue"
-      @keydown="phoneKeyDown"
-      v-model="model"
+      :class="{'input-phone__input': true,
+      'input-phone--wrong': v.getPhone.$error && isClickedProp}"
+      v-model="formatted"
+      @input="onInput"
+      @animationend="$emit('animFinished')"
     />
-    <span class="input-phone__info">Введите зарегистрированный номер</span>
+    <span
+    v-if="v.getPhone.$error"
+    class="input-phone__info input--required">{{getMessage()}}</span>
   </div>
 </template>
 
 <script>
+import messages from '@/utils/messages';
+
 export default {
   name: 'input-phone',
-  props: ['phoneNum'],
-  data: () => ({
-    formatted: '',
-  }),
+  props: ['phoneNum', 'isClickedProp', 'v'],
   computed: {
-    model: {
+    formatted: {
       get() {
         const numbersValue = this.getNumbersValue(this.phoneNum);
         return this.formattedPhone(numbersValue);
@@ -37,31 +41,9 @@ export default {
     },
   },
   methods: {
-    updateValue(e) {
-      const input = e.target;
-      const numbersValue = this.getNumbersValue(input.value);
-      // const { selectionStart } = input;
-
-      // if (!input.value) {
-      //   input.value = '';
-      //   return;
-      // }
-
-      // if (input.value.length !== selectionStart) {
-      //   if (e.data && /\D/g.test(e.data)) {
-      //     input.value = numbersValue;
-      //   }
-      //   return;
-      // } 9536906306 84442124224 asddssaass
-      input.value = this.formattedPhone(numbersValue);
-    },
     formattedPhone(numVal) {
       let numbersValue = numVal;
       let formatted = '';
-
-      // if (!numbersValue[2] && numbersValue[1] !== '') {
-      //   formatted = '';
-      // }
       if (!numbersValue) {
         formatted = '';
         return formatted;
@@ -86,20 +68,30 @@ export default {
       } else {
         formatted = `+${numbersValue}`;
       }
-      this.formatted = formatted;
-      return this.formatted;
+      return formatted;
     },
     getNumbersValue(val) {
       return val.replace(/\D/g, '');
     },
-    phoneKeyDown(e) {
-      const { selectionStart } = e.target;
-      const inputValue = e.target.value.replace(/\D/g, '');
-      if ((e.keyCode === 8 && inputValue.length === 1)
-      || (e.keyCode === 8 && selectionStart <= 2)) {
-        e.target.value = '';
-        this.$emit('phoneNumber', { phoneNumber: '' });
+    onInput(e) {
+      const input = e.target;
+      input.value = input.value.replace(/[^+\d ]/g, '');
+    },
+    getMessage() {
+      return messages[this.v.getPhone.$errors[0].$uid] ? messages[this.v.getPhone.$errors[0].$uid] : 'Введите зарегистрированный номер';
+    },
+  },
+  watch: {
+    formatted() {
+      const pos = this.$refs.input.selectionStart - 1;
+      const numbersValue = this.getNumbersValue(this.formatted);
+      const formatted = this.formattedPhone(numbersValue);
+      if (this.$refs.input.value.length !== this.$refs.input.selectionStart) {
+        this.$nextTick(() => {
+          this.$refs.input.selectionEnd = pos;
+        });
       }
+      this.formatted = formatted;
     },
   },
 };
@@ -138,6 +130,29 @@ export default {
     line-height: 24px;
     color: #808080;
   }
-}
+  &--wrong {
+    animation: 1s alternate shake;
+  }
+  @keyframes shake {
+    10%, 90% {
+      transform: translateX(-1px)
+    }
 
+    20%, 80% {
+      transform: translateX(2px)
+    }
+
+    30%, 50%, 70% {
+      transform: translateX(-4px)
+    }
+
+    40%, 60% {
+      transform: translateX(4px)
+    }
+  }
+}
+.input--required {
+  padding-left: 4px;
+  color: #ce2020;
+}
 </style>
